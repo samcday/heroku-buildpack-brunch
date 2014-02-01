@@ -1,9 +1,15 @@
 #!/usr/bin/env bash
 
-if [ -d $1/vendor/node ]; then
-    if [ ! -z "$(ls $1 | grep brunch-config)" ]; then
-        echo "Brunch" && exit 0
-    fi
+if [ ! -d $1/vendor/node ]; then
+    echo "Node not installed" && exit 1
 fi
 
-echo "Brunch not detected" && exit 1
+if [ ! -d $1/node_modules/brunch ]; then
+    echo "Brunch not installed. Add it to your package.json" && exit 1
+fi
+
+if [ -z "$(ls $1 | grep brunch-config)" ]; then
+    echo "No brunch config detected." && exit 1
+fi
+
+echo "Brunch" && exit 0

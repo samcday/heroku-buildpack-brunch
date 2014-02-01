@@ -12,9 +12,7 @@ cache_dir=$2
 # TODO: hash asset directories and only rerun brunch build if fingerprint changes?
 
 cd $build_dir
-
-status "Installing Brunch"
-$build_dir/vendor/node/bin/npm install brunch
+PATH=$build_dir/vendor/node/bin:$PATH
 
 status "Running brunch build --production"
 $build_dir/node_modules/.bin/brunch build --production
