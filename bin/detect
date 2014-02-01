@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [ -d $1/vendor/node && -f $1/brunch-config.js ]; 
+    echo "Brunch" && exit 0
+else
+    echo "Brunch not detected" && exit 1
+fi
