@@ -8,11 +8,19 @@ status() {
 
 build_dir=$1
 cache_dir=$2
+env_dir=$3
 
 # TODO: hash asset directories and only rerun brunch build if fingerprint changes?
 
 cd $build_dir
 PATH=$build_dir/vendor/node/bin:$PATH
 
-status "Running brunch build --production"
-$build_dir/node_modules/.bin/brunch build --production
+if [ -d "$env_dir" ]; then
+    if [ -f $env_dir/BRUNCH_ENV ]; then
+        BRUNCH_ENV=$(cat $env_dir/BRUNCH_ENV)
+        BRUNCH_ENV=${BRUNCH_ENV:-"production"}
+    fi
+fi
+
+status "Running brunch build --env $BRUNCH_ENV"
+$build_dir/node_modules/.bin/brunch build --env $BRUNCH_ENV
