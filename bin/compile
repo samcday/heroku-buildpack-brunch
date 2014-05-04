@@ -15,12 +15,15 @@ env_dir=$3
 cd $build_dir
 PATH=$build_dir/vendor/node/bin:$PATH
 
+ls $env_dir
+
 if [ -d "$env_dir" ]; then
-    if [ -f $env_dir/BRUNCH_ENV ]; then
+    if [ -f "$env_dir/BRUNCH_ENV" ]; then
         BRUNCH_ENV=$(cat $env_dir/BRUNCH_ENV)
-        BRUNCH_ENV=${BRUNCH_ENV:-"production"}
     fi
 fi
+
+BRUNCH_ENV=${BRUNCH_ENV:-"production"}
 
 status "Running brunch build --env $BRUNCH_ENV"
 $build_dir/node_modules/.bin/brunch build --env $BRUNCH_ENV
